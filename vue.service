@@ -1,0 +1,8 @@
+[Unit]
+Description=Chat Frontend
+
+[Service]
+ExecStart=serve -s /root/dist
+
+[Install]
+WantedBy=multi-user.target
