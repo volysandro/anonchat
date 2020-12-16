@@ -45,7 +45,7 @@ export default {
             recipient: '',
             messages: [],
             online: [],
-            socket : io('localhost:3001')
+            socket : io('https://ws.volery.org/', {secure: true})
         }
     },
     methods: {

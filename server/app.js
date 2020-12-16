@@ -1,8 +1,10 @@
 
 const express = require('express');
-
+const fs = require('fs');
 
 const app = express();
+var privateKey = fs.readFileSync('./ssl/server.key').toString();
+var certificate = fs.readFileSync('./ssl/server.cert').toString();
 
 
 
@@ -12,8 +14,7 @@ const app = express();
 
 
 
-
-const server = app.listen(3001, function() {
+const server = app.listen(3001, {key:privateKey,cert:certificate}, function() {
     console.log('server running on port 3001');
 });
 
@@ -34,7 +35,7 @@ io.on('connection', function(socket) {
 
     console.log(socket.id)
     socket.on('SEND_MESSAGE', function(data) {
-
+	if (data.message != ""){
         if (data.recipient == "everyone"){
             io.emit('MESSAGE', data)
         } else{
@@ -46,7 +47,7 @@ io.on('connection', function(socket) {
             })
 
         }
-
+	}
     });
 
     socket.on('disconnect', function () {
